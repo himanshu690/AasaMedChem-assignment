@@ -2,7 +2,21 @@
 
 A high-precision, real-time chemical inventory tracking and order/quotation management system built with Next.js (v16), TailwindCSS (v4), Auth.js (v5), Prisma, and Neon PostgreSQL.
 
+### 🌐 Live Deployment
+**URL:** [https://aasa-med-chem-assignment-tdga.vercel.app/](https://aasa-med-chem-assignment-tdga.vercel.app/)
+
+### 🔑 Demo Login Credentials
+You can use the following credentials to log in and test the features:
+
+| Role | Email | Password | Privileges |
+| :--- | :--- | :--- | :--- |
+| **Admin** | `admin@example.com` | `password123` | Create/Edit Products, View Conversion Stocks, Approve/Reject Orders |
+| **Seller** | `seller@example.com` | `password123` | Browse Catalog, Search, Live Conversion Calculator, Request Quotations |
+
+*(Note: The login page also includes buttons to auto-fill these credentials instantly.)*
+
 ---
+
 
 ## 🌟 Key Features
 
@@ -133,18 +147,7 @@ Prices are stored as **Price per Base Unit** (i.e. Price per gram, Price per mL,
 
 This approach ensures arithmetic is simple, consistent, and executes without floating-point inaccuracies.
 
----
 
-## 🔑 Demo Login Credentials
-
-The login screen features buttons to **auto-fill** these credentials, but you can also type them manually:
-
-| Role | Email | Password | Privileges |
-| :--- | :--- | :--- | :--- |
-| **Admin** | `admin@example.com` | `password123` | Create/Edit Products, View Conversion Stocks, Approve/Reject Orders |
-| **Seller** | `seller@example.com` | `password123` | Browse Catalog, Search, Live Conversion Calculator, Request Quotations |
-
----
 
 ## 💻 Local Setup Instructions
 
