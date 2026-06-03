@@ -12,10 +12,16 @@ enum Role {
   SELLER
 }
 
-enum Dimension {
+enum ProductDimension {
   WEIGHT
   VOLUME
   COUNT
+}
+
+enum BaseUnit {
+  GRAM
+  MILLILITER
+  ITEM
 }
 
 enum OrderStatus {
@@ -38,24 +44,23 @@ model User {
 }
 
 model Product {
-  id                 String   @id @default(cuid())
+  id               String   @id @default(cuid())
 
-  name               String
-  sku                String   @unique
-  description        String?
+  name             String
+  sku              String   @unique
+  description      String?
 
-  dimension          Dimension
+  dimension        ProductDimension
+  baseUnit         BaseUnit
 
-  baseUnit           String
+  stockQuantity    Decimal  @db.Decimal(20,8)
 
-  stockQuantity      Decimal  @db.Decimal(20,8)
+  pricePerUnit     Decimal  @db.Decimal(20,8)
 
-  pricePerBaseUnit   Decimal  @db.Decimal(20,8)
+  orderItems       OrderItem[]
 
-  orderItems         OrderItem[]
-
-  createdAt          DateTime @default(now())
-  updatedAt          DateTime @updatedAt
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
 }
 
 model Order {

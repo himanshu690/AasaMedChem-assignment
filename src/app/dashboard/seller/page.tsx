@@ -1,6 +1,6 @@
 import { auth } from "@/auth";
-import LogoutButton from "@/components/LogoutButton";
 import { redirect } from "next/navigation";
+import SellerConsole from "@/components/SellerConsole";
 
 export default async function SellerDashboard() {
   const session = await auth();
@@ -13,11 +13,5 @@ export default async function SellerDashboard() {
     redirect("/dashboard/admin");
   }
 
-  return (
-    <div>
-      <h1>Seller Dashboard</h1>
-      <p>Welcome {session.user.name}</p>
-      <LogoutButton />
-    </div>
-  );
+  return <SellerConsole />;
 }
