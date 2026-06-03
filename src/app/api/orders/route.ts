@@ -11,6 +11,17 @@ export async function GET() {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
+    let userId = session.user.id;
+    if (!userId && session.user.email) {
+      const dbUser = await prisma.user.findUnique({
+        where: { email: session.user.email },
+        select: { id: true }
+      });
+      if (dbUser) {
+        userId = dbUser.id;
+      }
+    }
+
     let orders;
     if (session.user.role === "ADMIN") {
       orders = await prisma.order.findMany({
@@ -26,7 +37,7 @@ export async function GET() {
       });
     } else {
       orders = await prisma.order.findMany({
-        where: { userId: session.user.id },
+        where: { userId: userId },
         include: {
           items: {
             include: {
@@ -49,6 +60,21 @@ export async function POST(req: NextRequest) {
     const session = await auth();
     if (!session) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    let userId = session.user.id;
+    if (!userId && session.user.email) {
+      const dbUser = await prisma.user.findUnique({
+        where: { email: session.user.email },
+        select: { id: true }
+      });
+      if (dbUser) {
+        userId = dbUser.id;
+      }
+    }
+
+    if (!userId) {
+      return NextResponse.json({ error: "User ID could not be resolved" }, { status: 401 });
     }
 
     const body = await req.json();
@@ -108,7 +134,7 @@ export async function POST(req: NextRequest) {
     const order = await prisma.$transaction(async (tx) => {
       const newOrder = await tx.order.create({
         data: {
-          userId: session.user.id as string,
+          userId: userId as string,
           status: "PENDING",
           totalAmount,
           items: {
